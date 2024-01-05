@@ -1,7 +1,8 @@
-class Player{ constructor (xp, health, gold){
+class Player{ constructor (xp, health, gold, weapons){
 this.xp= xp;
 this.health= health;
 this.gold= gold;
+this.weapons= weapons
 }
 
 winXp (xpEarned){
@@ -20,7 +21,14 @@ manageHealth(action, value){
     }else{
         healthEarned= this.health + value
     }
-    
+}
+
+useGold(action, amount){
+    let goldAmount;
+    if(action=== "buy"){
+        goldAmount= this.gold - amount
+        return goldAmount
+    }else{goldAmount= this.gold + amount}
 }
 
 };

@@ -1,6 +1,17 @@
-import Player from "./modules/player.js";
+// import Player from "./modules/player.js";
 
-const myPlayer= new Player(0, 100, 50)
+import { playerStat, setPlayer, myPlayer,  menuButtons, setMenu, menuTheme } from "./modules/start.js";
 
-console.log(myPlayer.winXp(1))
-console.log(myPlayer.manageHealth("hurt", "50"))
+
+
+document.addEventListener("DOMContentLoaded", () => {
+    
+  
+
+    setPlayer(playerStat)
+
+    setMenu( menuTheme )
+
+    
+});
+
