@@ -1,45 +1,72 @@
-import Player from "./player.js"
 
-import { storeMenu } from "./store.js"
+import { playerStat, setPlayer } from "./player.js";
+import { storeMenu, storeMenuActions } from "./store.js";
 
 
 
-const menuButtons={
-    firstButton:document.getElementById("button1"),
-    secondButton:document.getElementById("button2"),
-    thirdButton:document.getElementById("button3")
+const menuButtons = {
+  firstButton: document.getElementById("button1"),
+  secondButton: document.getElementById("button2"),
+  thirdButton: document.getElementById("button3"),
+};
+
+const startMenu = [
+  {
+    action: "redirect",
+    object: "Go to store",
+  },
+  {
+    action: "redirect",
+    object: " Go to cave ",
+  },
+  {
+    action: "redirect",
+    object: "Fight dragon",
+  },
+];
+
+let menuTheme = startMenu;
+
+const setMenu = (menu) => {
+  const first = menuButtons.firstButton;
+  first.setAttribute("action", menu[0].action);
+  first.setAttribute("object", menu[0].object)
+  first.innerText = ` ${menu[0].object} `;
+
+  const second = menuButtons.secondButton;
+  second.setAttribute("action", menu[1].action);
+  second.setAttribute("object", menu[1].object)
+  second.innerText = ` ${menu[1].object} `;
+
+  const third = menuButtons.thirdButton;
+  third.setAttribute("action", menu[2].action);
+  third.setAttribute("object", menu[2].object)
+  third.innerText = `${menu[2].object}`;
+
+  if(menu.cost !== ""){
+    first.setAttribute("cost", menu[0].cost)
+    second.setAttribute("cost", menu[1].cost)
+    third.setAttribute("cost", menu[2].cost)
+  }
+
+};
+
+const checkBtnAction= (e)=>{
+const btnActionAttribute= e.target.getAttribute("action")
+const btnObjectAttribute= e.target.getAttribute("object")
+
+if(btnActionAttribute=== "redirect" && btnObjectAttribute=== "Go to store"){
+    menuTheme=storeMenu
+    setMenu(menuTheme)
 }
 
-const startMenu=[
-     "Go to store",
-    "Go to cave",
-     "Fight dragon",
-]
-let menuTheme= startMenu
-const setMenu= (menu)=>{
-    const first=menuButtons.firstButton;
-    first.innerText= menu[0]
-    const second=menuButtons.secondButton.innerText= menu[1]
-    const third=menuButtons.thirdButton.innerText=  menu[2]
-
-    first.addEventListener("click", (e)=>{
-        if(e.target.textContent=== startMenu[0]){
-            menuTheme=storeMenu
-            setMenu(menuTheme)
-        }
-    })
+else if(btnActionAttribute=== "buy"){
+  storeMenuActions(e)
+  setPlayer(playerStat)
 }
-const playerStat= {
-    xp:document.getElementById("xpText"),
-    health:document.getElementById("healthText"),
-    gold:document.getElementById("goldText")
- }
 
- const setPlayer=(stat)=>{
-    stat.xp.innerText= myPlayer.xp
-    stat.health.innerText=myPlayer.health
-    stat.gold.innerText=myPlayer.gold
 }
-const myPlayer = new Player(0, 100, 20, "knife");
 
-export {playerStat, setPlayer, myPlayer,  menuButtons, setMenu, menuTheme }
+
+
+export { menuButtons, setMenu, menuTheme, checkBtnAction };
